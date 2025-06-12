@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio - Référent Digital</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#1E3D59',secondary:'#FFD700'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&family=Pacifico&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Open Sans', sans-serif;
+scroll-behavior: smooth;
+}
+h1, h2, h3, h4, h5, h6 {
+font-family: 'Montserrat', sans-serif;
+}
+.hero-section {
+background-image: linear-gradient(rgba(30, 61, 89, 0.7), rgba(30, 61, 89, 0.7)), url('https://readdy.ai/api/search-image?query=professional%2520digital%2520workspace%2520with%2520modern%2520office%2520setup%2C%2520computer%2520screens%2520showing%2520digital%2520marketing%2520analytics%2C%2520clean%2520desk%2520with%2520minimal%2520accessories%2C%2520soft%2520natural%2520lighting%2C%2520plants%2520in%2520background%2C%2520modern%2520architecture%2C%2520glass%2520walls%2C%2520professional%2520atmosphere&width=1920&height=1080&seq=1&orientation=landscape');
+background-size: cover;
+background-position: center;
+}
+.scroll-indicator {
+animation: bounce 2s infinite;
+}
+@keyframes bounce {
+0%, 20%, 50%, 80%, 100% {
+transform: translateY(0);
+}
+40% {
+transform: translateY(-20px);
+}
+60% {
+transform: translateY(-10px);
+}
+}
+.project-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+.skill-card:hover {
+transform: scale(1.03);
+}
+input:focus, textarea:focus {
+outline: none;
+border-color: #1E3D59;
+}
+input[type="range"]::-webkit-slider-thumb {
+-webkit-appearance: none;
+appearance: none;
+width: 18px;
+height: 18px;
+background: #1E3D59;
+border-radius: 50%;
+cursor: pointer;
+}
+.custom-checkbox {
+position: relative;
+padding-left: 30px;
+cursor: pointer;
+user-select: none;
+}
+.custom-checkbox input {
+position: absolute;
+opacity: 0;
+cursor: pointer;
+}
+.checkmark {
+position: absolute;
+top: 0;
+left: 0;
+height: 20px;
+width: 20px;
+background-color: #fff;
+border: 2px solid #1E3D59;
+border-radius: 4px;
+}
+.custom-checkbox input:checked ~ .checkmark {
+background-color: #1E3D59;
+}
+.checkmark:after {
+content: "";
+position: absolute;
+display: none;
+}
+.custom-checkbox input:checked ~ .checkmark:after {
+display: block;
+}
+.custom-checkbox .checkmark:after {
+left: 6px;
+top: 2px;
+width: 5px;
+height: 10px;
+border: solid white;
+border-width: 0 2px 2px 0;
+transform: rotate(45deg);
+}
+.switch {
+position: relative;
+display: inline-block;
+width: 50px;
+height: 24px;
+}
+.switch input {
+opacity: 0;
+width: 0;
+height: 0;
+}
+.slider {
+position: absolute;
+cursor: pointer;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: #ccc;
+transition: .4s;
+border-radius: 24px;
+}
+.slider:before {
+position: absolute;
+content: "";
+height: 16px;
+width: 16px;
+left: 4px;
+bottom: 4px;
+background-color: white;
+transition: .4s;
+border-radius: 50%;
+}
+input:checked + .slider {
+background-color: #1E3D59;
+}
+input:checked + .slider:before {
+transform: translateX(26px);
+}
+</style>
+</head>
+<body class="bg-white">
+<!-- Navigation -->
+<nav class="fixed top-0 w-full bg-white shadow-md z-50">
+<div class="container mx-auto px-4 py-3 flex items-center justify-between">
+<a href="#" class="text-2xl font-['Pacifico'] text-primary">Portfolio</a>
+<div class="hidden md:flex space-x-8">
+<a href="#accueil" class="font-medium text-gray-700 hover:text-primary transition-colors">Accueil</a>
+<a href="#a-propos" class="font-medium text-gray-700 hover:text-primary transition-colors">À propos</a>
+<a href="#competences" class="font-medium text-gray-700 hover:text-primary transition-colors">Compétences</a>
+<a href="#projets" class="font-medium text-gray-700 hover:text-primary transition-colors">Projets</a>
+<a href="#contact" class="font-medium text-gray-700 hover:text-primary transition-colors">Contact</a>
+</div>
+<div class="md:hidden">
+<button id="menu-toggle" class="w-10 h-10 flex items-center justify-center text-gray-700">
+<i class="ri-menu-line ri-2x"></i>
+</button>
+</div>
+</div>
+<!-- Mobile menu -->
+<div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
+<div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
+<a href="#accueil" class="font-medium text-gray-700 hover:text-primary transition-colors py-2">Accueil</a>
+<a href="#a-propos" class="font-medium text-gray-700 hover:text-primary transition-colors py-2">À propos</a>
+<a href="#competences" class="font-medium text-gray-700 hover:text-primary transition-colors py-2">Compétences</a>
+<a href="#projets" class="font-medium text-gray-700 hover:text-primary transition-colors py-2">Projets</a>
+<a href="#contact" class="font-medium text-gray-700 hover:text-primary transition-colors py-2">Contact</a>
+</div>
+</div>
+</nav>
+<!-- Hero Section -->
+<section id="accueil" class="hero-section min-h-screen flex items-center pt-16">
+<div class="container mx-auto px-4 py-16 text-white">
+<div class="flex flex-col md:flex-row items-center justify-between">
+<div class="md:w-1/2 mb-10 md:mb-0">
+<h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">Référent Digital</h1>
+<p class="text-xl md:text-2xl mb-8">Transformer votre présence numérique avec des stratégies innovantes et efficaces</p>
+<a href="#projets" class="inline-block bg-secondary text-primary font-bold py-3 px-8 rounded-button transition-all hover:bg-opacity-90 hover:shadow-lg whitespace-nowrap">Découvrir mon travail</a>
+</div>
+<div class="md:w-1/2 flex justify-center">
+<div class="relative">
+<div class="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-white shadow-xl">
+<img src="image/Profil.png" alt="Photo de profil" class="w-full h-full object-cover object-top">
+</div>
+</div>
+</div>
+</div>
+<div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 scroll-indicator">
+<a href="#a-propos" class="w-10 h-10 flex items-center justify-center text-white">
+<i class="ri-arrow-down-line ri-2x"></i>
+</a>
+</div>
+</div>
+</section>
+<!-- À propos Section -->
+<section id="a-propos" class="py-20 bg-gray-50">
+<div class="container mx-auto px-4">
+<h2 class="text-3xl md:text-4xl font-bold text-center mb-16 text-primary">À Propos de Moi</h2>
+<div class="flex flex-col md:flex-row items-center gap-12">
+<div class="md:w-2/5">
+<img src="image/profil" alt="Photo de profil" class="w-full h-auto rounded-lg shadow-xl">
+</div>
+<div class="md:w-3/5">
+<h3 class="text-2xl font-semibold mb-4 text-primary">Bonjour, je suis Gabriella OBIANG</h3>
+<p class="text-gray-700 mb-6 leading-relaxed">
+Passionné par le numérique, je mets mes compétences en stratégie digitale, création de contenu au service des entreprises pour booster leur présence en ligne.
+</p>
+
+<div class="grid grid-cols-2 gap-6 mb-8">
+<div class="flex items-start">
+<div class="w-12 h-12 flex items-center justify-center bg-primary bg-opacity-10 rounded-full mr-4">
+<i class="ri-lightbulb-line text-primary ri-lg"></i>
+</div>
+<div>
+<h4 class="font-semibold mb-1">Innovation</h4>
+<p class="text-gray-600 text-sm">Toujours à l'affût des dernières tendances</p>
+</div>
+</div>
+<div class="flex items-start">
+<div class="w-12 h-12 flex items-center justify-center bg-primary bg-opacity-10 rounded-full mr-4">
+<i class="ri-team-line text-primary ri-lg"></i>
+</div>
+<div>
+<h4 class="font-semibold mb-1">Collaboration</h4>
+<p class="text-gray-600 text-sm">Travail d'équipe et communication efficace</p>
+</div>
+</div>
+<div class="flex items-start">
+<div class="w-12 h-12 flex items-center justify-center bg-primary bg-opacity-10 rounded-full mr-4">
+<i class="ri-bar-chart-line text-primary ri-lg"></i>
+</div>
+<div>
+<h4 class="font-semibold mb-1">Résultats</h4>
+<p class="text-gray-600 text-sm">Orientée objectifs et performance</p>
+</div>
+</div>
+<div class="flex items-start">
+<div class="w-12 h-12 flex items-center justify-center bg-primary bg-opacity-10 rounded-full mr-4">
+<i class="ri-global-line text-primary ri-lg"></i>
+</div>
+<div>
+<h4 class="font-semibold mb-1">Vision Globale</h4>
+<p class="text-gray-600 text-sm">Créer des solutions digitales sur mesure qui répondent aux besoins spécifiques de chaque client.</p>
+</div>
+</div>
+</div>
+<a href="#contact" class="inline-block bg-primary text-white font-bold py-3 px-8 rounded-button transition-all hover:bg-opacity-90 hover:shadow-lg whitespace-nowrap">Me Contacter</a>
+</div>
+</div>
+</div>
+</section>
+<!-- Compétences Section -->
+<section id="competences" class="py-20">
+<div class="container mx-auto px-4">
+<h2 class="text-3xl md:text-4xl font-bold text-center mb-16 text-primary">Mes Compétences</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Compétence 1 -->
+<div class="skill-card bg-white p-6 rounded-lg shadow-md transition-all duration-300 hover:shadow-xl">
+<div class="w-14 h-14 flex items-center justify-center bg-primary bg-opacity-10 rounded-full mb-6">
+<i class="ri-line-chart-line text-primary ri-xl"></i>
+</div>
+<h3 class="text-xl font-semibold mb-3">Stratégie Digitale</h3>
+<p class="text-gray-600 mb-4">Élaboration de stratégies numériques complètes adaptées aux objectifs d'entreprise et au marché .</p>
+<div class="mb-4">
+<div class="flex justify-between mb-1">
+<span class="text-sm font-medium text-gray-700">Niveau de maîtrise</span>
+<span class="text-sm font-medium text-primary">95%</span>
+</div>
+<div class="w-full bg-gray-200 rounded-full h-2">
+<div class="bg-primary h-2 rounded-full" style="width: 95%"></div>
+</div>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="text-xs bg-gray-100 text-gray-700 px-3 py-1 rounded-full">Audit digital</span>
+<span class="text-xs bg-gray-100 text-gray-700 px-3 py-1 rounded-full">KPIs</span>
+<span class="text-xs bg-gray-100 text-gray-700 px-3 py-1 rounded-full">ROI</span>
+<span class="text-xs bg-gray-100 text-gray-700 px-3 py-1 rounded-full">Benchmarking</span>
+</div>
+</div>
+<!-- Compétence 2 -->
+<div class="skill-card bg-white p-6 rounded-lg shadow-md transition-all duration-300 hover:shadow-xl">
+<div class="w-14 h-14 flex items-center justify-center bg-primary bg-opacity-10 rounded-full mb-6">
+<i class="ri-layout-grid-line text-primary ri-xl"></i>
+</div>
+<h3 class="text-xl font-semibold mb-3">Gestion de Contenu</h3>
+<p class="text-gray-600 mb-4">Création et gestion de contenus engageants et pertinents pour différentes plateformes numériques.</p>
+<div class="mb-4">
+<div class="flex justify-between mb-1">
+<span class="text-sm font-medium text-gray-700">Niveau de maîtrise</span>
+<span class="text-sm font-medium text-primary">50%</span>
+</div>
+<div class="w-full bg-gray-200 rounded-full h-2">
+<div class="bg-primary h-2 rounded-full" style="width: 90%"></div>
+</div>
+</div>
+<div class="flex flex-wrap gap-2"> 
+<span class="text-xs bg-gray-100 text-gray-700 px-3 py-1 rounded-full">SEO</span>
+<span class="text-xs bg-gray-100 text-gray-700 px-3 py-1 rounded-full">CMS</span>
+</div>
+</div>
+<!-- Compétence 3 -->
+<div class="skill-card bg-white p-6 rounded-lg shadow-md transition-all duration-300 hover:shadow-xl">
+<div class="w-14 h-14 flex items-center justify-center bg-primary bg-opacity-10 rounded-full mb-6">
+<i class="ri-group-line text-primary ri-xl"></i>
+</div>
+<h3 class="text-xl font-semibold mb-3">Réseaux Sociaux</h3>
+<p class="text-gray-600 mb-4">Gestion et optimisation des réseaux sociaux pour accroître l'engagement et la visibilité des marques.</p>
+<div class="mb-4">
+<div class="flex justify-between mb-1">
+<span class="text-sm font-medium text-gray-700">Niveau de maîtrise</span>
+<span class="text-sm font-medium text-primary">92%</span>
+</div>
+<div class="w-full bg-gray-200 rounded-full h-2">
+<div class="bg-primary h-2 rounded-full" style="width: 92%"></div>
+</div>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="text-xs bg-gray-100 text-gray-700 px-3 py-1 rounded-full">Facebook</span>
+<span class="text-xs bg-gray-100 text-gray-700 px-3 py-1 rounded-full">Instagram</span>
+<span class="text-xs bg-gray-100 text-gray-700 px-3 py-1 rounded-full">LinkedIn</span>
+<span class="text-xs bg-gray-100 text-gray-700 px-3 py-1 rounded-full">TikTok</span>
+</div>
+</div>
+
+
+<!-- Compétence 6 -->
+<div class="skill-card bg-white p-6 rounded-lg shadow-md transition-all duration-300 hover:shadow-xl">
+<div class="w-14 h-14 flex items-center justify-center bg-primary bg-opacity-10 rounded-full mb-6">
+<i class="ri-palette-line text-primary ri-xl"></i>
+</div>
+<h3 class="text-xl font-semibold mb-3">Création Graphique</h3>
+<p class="text-gray-600 mb-4">Conception d'éléments visuels attrayants pour renforcer l'identité de marque et la communication.</p>
+<div class="mb-4">
+<div class="flex justify-between mb-1">
+<span class="text-sm font-medium text-gray-700">Niveau de maîtrise</span>
+<span class="text-sm font-medium text-primary">80%</span>
+</div>
+<div class="w-full bg-gray-200 rounded-full h-2">
+<div class="bg-primary h-2 rounded-full" style="width: 80%"></div>
+</div>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="text-xs bg-gray-100 text-gray-700 px-3 py-1 rounded-full">Photoshop</span>
+<span class="text-xs bg-gray-100 text-gray-700 px-3 py-1 rounded-full">Canva</span>
+</div>
+</div>
+</div>
+<div class="mt-16">
+<h3 class="text-2xl font-semibold mb-8 text-center">Mes Outils Préférés</h3>
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 flex items-center justify-center bg-gray-100 rounded-full mb-3">
+<i class="ri-google-fill text-primary ri-2x"></i>
+</div>
+<span class="text-sm text-gray-700">Google Workspace</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 flex items-center justify-center bg-gray-100 rounded-full mb-3">
+<i class="ri-facebook-fill text-primary ri-2x"></i>
+</div>
+<span class="text-sm text-gray-700">Meta Business</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 flex items-center justify-center bg-gray-100 rounded-full mb-3">
+<i class="ri-mail-send-line text-primary ri-2x"></i>
+</div>
+<span class="text-sm text-gray-700">Mailchimp</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 flex items-center justify-center bg-gray-100 rounded-full mb-3">
+<i class="ri-wordpress-fill text-primary ri-2x"></i>
+</div>
+<span class="text-sm text-gray-700">WordPress</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 flex items-center justify-center bg-gray-100 rounded-full mb-3">
+<i class="ri-trello-fill text-primary ri-2x"></i>
+</div>
+<span class="text-sm text-gray-700">Trello</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 flex items-center justify-center bg-gray-100 rounded-full mb-3">
+<i class="ri-adobe-fill text-primary ri-2x"></i>
+</div>
+<span class="text-sm text-gray-700">Adobe Creative</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Projets Section -->
+<section id="projets" class="py-20 bg-gray-50">
+<div class="container mx-auto px-4">
+<h2 class="text-3xl md:text-4xl font-bold text-center mb-6 text-primary">Mes Projets Réalisés</h2>
+<p class="text-gray-600 text-center mb-16 max-w-3xl mx-auto">Découvrez une sélection de mes projets les plus significatifs, démontrant mon expertise en stratégie digitale et marketing numérique.</p>
+<div class="mb-10 flex justify-center">
+<div class="inline-flex bg-white p-1 rounded-full shadow-sm">
+<button class="filter-btn active px-4 py-2 rounded-full text-sm font-medium bg-primary text-white whitespace-nowrap !rounded-button" data-filter="all">Tous les projets</button>
+<button class="filter-btn px-4 py-2 rounded-full text-sm font-medium text-gray-700 hover:bg-gray-100 whitespace-nowrap !rounded-button" data-filter="strategie">Stratégie</button>
+<button class="filter-btn px-4 py-2 rounded-full text-sm font-medium text-gray-700 hover:bg-gray-100 whitespace-nowrap !rounded-button" data-filter="social">Réseaux Sociaux</button>
+<button class="filter-btn px-4 py-2 rounded-full text-sm font-medium text-gray-700 hover:bg-gray-100 whitespace-nowrap !rounded-button" data-filter="web">Web</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Projet 1 -->
+<div class="project-card bg-white rounded-lg overflow-hidden shadow-md transition-all duration-300" data-category="strategie">
+<div class="relative h-56 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=digital%2520marketing%2520strategy%2520document%2C%2520professional%2520layout%2C%2520analytics%2520charts%2C%2520brand%2520guidelines%2C%2520marketing%2520plan%2C%2520clean%2520desk%2520with%2520laptop%2520showing%2520strategy%2520document%2C%2520professional%2520setting%2C%2520high%2520quality%2520image&width=600&height=400&seq=4&orientation=landscape" alt="Projet de stratégie digitale" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-6">
+<h3 class="text-xl font-semibold mb-2">Stratégie Digitale /h3>
+<p class="text-gray-600 mb-4">Élaboration d'une stratégie digitale complète pour Banque Atlantique Gabon, incluant refonte du site web, stratégie de contenu et plan média.</p>
+<div class="flex flex-wrap gap-2 mb-4">
+<span class="text-xs bg-primary bg-opacity-10 text-primary px-3 py-1 rounded-full">Stratégie</span>
+<span class="text-xs bg-primary bg-opacity-10 text-primary px-3 py-1 rounded-full">SEO</span>
+<span class="text-xs bg-primary bg-opacity-10 text-primary px-3 py-1 rounded-full">Contenu</span>
+</div>
+<button class="view-project-btn inline-block bg-primary text-white font-bold py-2 px-6 rounded-button transition-all hover:bg-opacity-90 whitespace-nowrap" data-id="1">Voir le projet</button>
+</div>
+</div>
+<!-- Projet 2 -->
+<div class="project-card bg-white rounded-lg overflow-hidden shadow-md transition-all duration-300" data-category="social">
+<div class="relative h-56 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=social%2520media%2520campaign%2520for%2520African%2520tourism%2C%2520beautiful%2520images%2520of%2520Gabon%2520nature%2C%2520wildlife%2C%2520beaches%2C%2520professional%2520social%2520media%2520posts%2520layout%2C%2520Instagram%2520and%2520Facebook%2520mockups%2C%2520engagement%2520metrics%2C%2520high%2520quality%2520image&width=600&height=400&seq=5&orientation=landscape" alt="Campagne réseaux sociaux" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-6">
+<h3 class="text-xl font-semibold mb-2">Campagne Réseaux Sociaux</h3>
+<p class="text-gray-600 mb-4">Conception et gestion d'une campagne réseaux sociaux pour l'Office du Tourisme Gabonais, augmentant l'engagement de 150% en 3 mois.</p>
+<div class="flex flex-wrap gap-2 mb-4">
+<span class="text-xs bg-primary bg-opacity-10 text-primary px-3 py-1 rounded-full">Social Media</span>
+<span class="text-xs bg-primary bg-opacity-10 text-primary px-3 py-1 rounded-full">Contenu</span>
+<span class="text-xs bg-primary bg-opacity-10 text-primary px-3 py-1 rounded-full">Ads</span>
+</div>
+<button class="view-project-btn inline-block bg-primary text-white font-bold py-2 px-6 rounded-button transition-all hover:bg-opacity-90 whitespace-nowrap" data-id="2">Voir le projet</button>
+</div>
+</div>
+<!-- Projet 3 -->
+<div class="project-card bg-white rounded-lg overflow-hidden shadow-md transition-all duration-300" data-category="web">
+<div class="relative h-56 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=e-commerce%2520website%2520for%2520African%2520fashion%2C%2520responsive%2520design%2C%2520clean%2520layout%2C%2520product%2520showcase%2C%2520shopping%2520cart%2C%2520modern%2520web%2520design%2C%2520professional%2520website%2520mockup%2C%2520high%2520quality%2520image&width=600&height=400&seq=6&orientation=landscape" alt="Site e-commerce" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-6">
+<h3 class="text-xl font-semibold mb-2">Site E-commerce</h3>
+<p class="text-gray-600 mb-4">Développement et optimisation d'un site e-commerce pour Afrikrea Gabon, spécialisé dans la mode africaine contemporaine.</p>
+<div class="flex flex-wrap gap-2 mb-4">
+<span class="text-xs bg-primary bg-opacity-10 text-primary px-3 py-1 rounded-full">Web</span>
+<span class="text-xs bg-primary bg-opacity-10 text-primary px-3 py-1 rounded-full">E-commerce</span>
+<span class="text-xs bg-primary bg-opacity-10 text-primary px-3 py-1 rounded-full">UX/UI</span>
+</div>
+<button class="view-project-btn inline-block bg-primary text-white font-bold py-2 px-6 rounded-button transition-all hover:bg-opacity-90 whitespace-nowrap" data-id="3">Voir le projet</button>
+</div>
+</div>
+
+</section>
+<!-- Modal pour les projets -->
+<div id="project-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
+<div class="absolute inset-0 bg-black bg-opacity-50"></div>
+<div class="relative bg-white rounded-lg max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+<button id="close-modal" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700">
+<i class="ri-close-line ri-lg"></i>
+</button>
+<div id="modal-content" class="p-6">
+<!-- Le contenu sera injecté dynamiquement -->
+</div>
+</div>
+</div>
+<!-- Contact Section -->
+<section id="contact" class="py-20">
+<div class="container mx-auto px-4">
+<h2 class="text-3xl md:text-4xl font-bold text-center mb-16 text-primary">Me Contacter</h2>
+<div class="flex flex-col lg:flex-row gap-12">
+<div class="lg:w-1/2">
+<h3 class="text-2xl font-semibold mb-6">Envoyez-moi un message</h3>
+<p class="text-gray-600 mb-8">N'hésitez pas à me contacter pour discuter de vos projets ou pour toute question concernant mes services.</p>
+<form id="contact-form" class="space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div>
+<label for="name" class="block text-sm font-medium text-gray-700 mb-2">Nom complet</label>
+<input type="text" id="name" name="name" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded focus:ring-2 focus:ring-primary focus:border-primary" placeholder="Votre nom" required>
+</div>
+<div>
+<label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+<input type="email" id="email" name="email" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded focus:ring-2 focus:ring-primary focus:border-primary" placeholder="votre@email.com" required>
+</div>
+</div>
+<div>
+<label for="subject" class="block text-sm font-medium text-gray-700 mb-2">Sujet</label>
+<input type="text" id="subject" name="subject" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded focus:ring-2 focus:ring-primary focus:border-primary" placeholder="Sujet de votre message" required>
+</div>
+<div>
+<label for="message" class="block text-sm font-medium text-gray-700 mb-2">Message</label>
+<textarea id="message" name="message" rows="5" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded focus:ring-2 focus:ring-primary focus:border-primary" placeholder="Votre message" required></textarea>
+</div>
+<div class="flex items-center">
+<label class="custom-checkbox">
+<input type="checkbox" required>
+<span class="checkmark"></span>
+<span class="ml-2 text-sm text-gray-700">J'accepte que mes données soient utilisées pour être recontacté(e)</span>
+</label>
+</div>
+<button type="submit" class="inline-block bg-primary text-white font-bold py-3 px-8 rounded-button transition-all hover:bg-opacity-90 hover:shadow-lg whitespace-nowrap">Envoyer le message</button>
+</form>
+</div>
+<div class="lg:w-1/2">
+<h3 class="text-2xl font-semibold mb-6">Informations de contact</h3>
+<div class="space-y-6 mb-8">
+<div class="flex items-start">
+<div class="w-12 h-12 flex items-center justify-center bg-primary bg-opacity-10 rounded-full mr-4">
+<i class="ri-map-pin-line text-primary ri-lg"></i>
+</div>
+<div>
+<h4 class="font-semibold mb-1">Adresse</h4>
+<p class="text-gray-600">Plein ciel<br>Libreville, Gabon</p>
+</div>
+</div>
+<div class="flex items-start">
+<div class="w-12 h-12 flex items-center justify-center bg-primary bg-opacity-10 rounded-full mr-4">
+<i class="ri-mail-line text-primary ri-lg"></i>
+</div>
+<div>
+<h4 class="font-semibold mb-1">Email</h4>
+<p class="text-gray-600">calixtheobiang16@gmail.com</p>
+</div>
+</div>
+<div class="flex items-start">
+<div class="w-12 h-12 flex items-center justify-center bg-primary bg-opacity-10 rounded-full mr-4">
+<i class="ri-phone-line text-primary ri-lg"></i>
+</div>
+<div>
+<h4 class="font-semibold mb-1">Téléphone</h4>
+<p class="text-gray-600">+241 62 31 10 34 /+241 74 52 36 83 </p>
+</div>
+</div>
+</div>
+<h4 class="font-semibold mb-4">Suivez-moi</h4>
+<div class="flex space-x-4 mb-8">
+<a href="#" class="w-10 h-10 flex items-center justify-center bg-primary bg-opacity-10 rounded-full text-primary hover:bg-primary hover:text-white transition-colors">
+<i class="ri-linkedin-fill ri-lg"></i>
+</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center bg-primary bg-opacity-10 rounded-full text-primary hover:bg-primary hover:text-white transition-colors">
+<i class="ri-twitter-fill ri-lg"></i>
+</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center bg-primary bg-opacity-10 rounded-full text-primary hover:bg-primary hover:text-white transition-colors">
+<i class="ri-instagram-fill ri-lg"></i>
+</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center bg-primary bg-opacity-10 rounded-full text-primary hover:bg-primary hover:text-white transition-colors">
+<i class="ri-facebook-fill ri-lg"></i>
+</a>
+</div>
+<div class="w-full h-64 rounded-lg overflow-hidden shadow-md">
+<div class="w-full h-full" style="background-image: url('https://public.readdy.ai/gen_page/map_placeholder_1280x720.png'); background-size: cover; background-position: center;"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-primary text-white py-12">
+<div class="container mx-auto px-4">
+<div class="flex flex-col md:flex-row justify-between mb-12">
+<div class="mb-8 md:mb-0">
+<a href="#" class="text-3xl font-['Pacifico'] text-white mb-4 inline-block">Portfolio</a>
+<p class="text-gray-300 max-w-xs">Référente Digitale, spécialisée dans la transformation numérique et le marketing digital.</p>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-8">
+<div>
+<h4 class="text-lg font-semibold mb-4">Liens Rapides</h4>
+<ul class="space-y-2">
+<li><a href="#accueil" class="text-gray-300 hover:text-white transition-colors">Accueil</a></li>
+<li><a href="#a-propos" class="text-gray-300 hover:text-white transition-colors">À propos</a></li>
+<li><a href="#competences" class="text-gray-300 hover:text-white transition-colors">Compétences</a></li>
+<li><a href="#projets" class="text-gray-300 hover:text-white transition-colors">Projets</a></li>
+<li><a href="#contact" class="text-gray-300 hover:text-white transition-colors">Contact</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-lg font-semibold mb-4">Services</h4>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-300 hover:text-white transition-colors">Stratégie Digitale</a></li>
+<li><a href="#" class="text-gray-300 hover:text-white transition-colors">Marketing Digital</a></li>
+<li><a href="#" class="text-gray-300 hover:text-white transition-colors">Réseaux Sociaux</a></li>
+<li><a href="#" class="text-gray-300 hover:text-white transition-colors">Création de Contenu</a></li>
+<li><a href="#" class="text-gray-300 hover:text-white transition-colors">Formation</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-lg font-semibold mb-4">Légal</h4>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-300 hover:text-white transition-colors">Mentions légales</a></li>
+<li><a href="#" class="text-gray-300 hover:text-white transition-colors">Politique de confidentialité</a></li>
+<li><a href="#" class="text-gray-300 hover:text-white transition-colors">Conditions d'utilisation</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="pt-8 border-t border-gray-700 flex flex-col md:flex-row justify-between items-center">
+<p class="text-gray-400 mb-4 md:mb-0">&copy; 2025 Gabriella OBIANG. Tous droits réservés.</p>
+<div class="flex space-x-4">
+<a href="#" class="text-gray-400 hover:text-white transition-colors">
+<i class="ri-linkedin-fill ri-lg"></i>
+</a>
+<a href="#" class="text-gray-400 hover:text-white transition-colors">
+<i class="ri-twitter-fill ri-lg"></i>
+</a>
+<a href="#" class="text-gray-400 hover:text-white transition-colors">
+<i class="ri-instagram-fill ri-lg"></i>
+</a>
+<a href="#" class="text-gray-400 hover:text-white transition-colors">
+<i class="ri-facebook-fill ri-lg"></i>
+</a>
+</div>
+</div>
+</div>
+</footer>
+<!-- Bouton retour en haut -->
+<button id="back-to-top" class="fixed bottom-6 right-6 w-12 h-12 bg-primary text-white rounded-full shadow-lg flex items-center justify-center opacity-0 invisible transition-all z-40">
+<i class="ri-arrow-up-line ri-lg"></i>
+</button>
+<!-- Scripts -->
+<script id="navigation-script">
+document.addEventListener('DOMContentLoaded', function() {
+const menuToggle = document.getElementById('menu-toggle');
+const mobileMenu = document.getElementById('mobile-menu');
+menuToggle.addEventListener('click', function() {
+mobileMenu.classList.toggle('hidden');
+});
+// Fermer le menu mobile quand on clique sur un lien
+const mobileLinks = mobileMenu.querySelectorAll('a');
+mobileLinks.forEach(link => {
+link.addEventListener('click', function() {
+mobileMenu.classList.add('hidden');
+});
+});
+});
+</script>
+<script id="scroll-script">
+document.addEventListener('DOMContentLoaded', function() {
+const backToTop = document.getElementById('back-to-top');
+window.addEventListener('scroll', function() {
+if (window.scrollY > 300) {
+backToTop.classList.remove('opacity-0', 'invisible');
+backToTop.classList.add('opacity-100', 'visible');
+} else {
+backToTop.classList.remove('opacity-100', 'visible');
+backToTop.classList.add('opacity-0', 'invisible');
+}
+});
+backToTop.addEventListener('click', function() {
+window.scrollTo({
+top: 0,
+behavior: 'smooth'
+});
+});
+// Smooth scroll pour les liens d'ancrage
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+anchor.addEventListener('click', function(e) {
+e.preventDefault();
+const targetId = this.getAttribute('href');
+if (targetId === '#') return;
+const targetElement = document.querySelector(targetId);
+if (targetElement) {
+window.scrollTo({
+top: targetElement.offsetTop - 80, // Ajustement pour la navbar fixe
+behavior: 'smooth'
+});
+}
+});
+});
+});
+</script>
+<script id="project-filter-script">
+document.addEventListener('DOMContentLoaded', function() {
+const filterButtons = document.querySelectorAll('.filter-btn');
+const projectCards = document.querySelectorAll('.project-card');
+filterButtons.forEach(button => {
+button.addEventListener('click', function() {
+// Retirer la classe active de tous les boutons
+filterButtons.forEach(btn => {
+btn.classList.remove('active', 'bg-primary', 'text-white');
+btn.classList.add('text-gray-700', 'hover:bg-gray-100');
+});
+// Ajouter la classe active au bouton cliqué
+this.classList.add('active', 'bg-primary', 'text-white');
+this.classList.remove('text-gray-700', 'hover:bg-gray-100');
+const filter = this.getAttribute('data-filter');
+// Filtrer les projets
+projectCards.forEach(card => {
+if (filter === 'all' || card.getAttribute('data-category') === filter) {
+card.style.display = 'block';
+} else {
+card.style.display = 'none';
+}
+});
+});
+});
+});
+</script>
+<script id="project-modal-script">
+document.addEventListener('DOMContentLoaded', function() {
+const projectModal = document.getElementById('project-modal');
+const modalContent = document.getElementById('modal-content');
+const closeModal = document.getElementById('close-modal');
+const viewProjectButtons = document.querySelectorAll('.view-project-btn');
+// Données des projets
+const projectsData = {
+1: {
+title: "Stratégie Digitale Complète - Banque Atlantique Gabon",
+image: "https://readdy.ai/api/search-image?query=digital%2520marketing%2520strategy%2520document%2C%2520professional%2520layout%2C%2520analytics%2520charts%2C%2520brand%2520guidelines%2C%2520marketing%2520plan%2C%2520clean%2520desk%2520with%2520laptop%2520showing%2520strategy%2520document%2C%2520professional%2520setting%2C%2520high%2520quality%2520image&width=800&height=500&seq=10&orientation=landscape",
+description: "La Banque Atlantique Gabon souhaitait moderniser sa présence digitale pour attirer une clientèle plus jeune et dynamiser son image. J'ai élaboré une stratégie digitale complète sur 18 mois comprenant :",
+details: [
+"Audit complet de la présence digitale existante et analyse concurrentielle",
+"Refonte complète du site web avec intégration d'outils de self-service bancaire",
+"Développement d'une stratégie de contenu axée sur l'éducation financière",
+"Mise en place d'un plan média digital ciblant les 25-45 ans",
+"Formation des équipes internes à la gestion des réseaux sociaux"
+],
+results: [
+"Augmentation de 35% du trafic web en 6 mois",
+"Croissance de 150% de l'engagement sur les réseaux sociaux",
+"Acquisition de 2500 nouveaux clients via les canaux digitaux",
+"Réduction de 20% des appels au service client grâce aux outils en ligne"
+],
+testimonial: {
+text: "Marie a transformé notre approche digitale avec une stratégie claire et efficace. Son expertise nous a permis d'atteindre une nouvelle clientèle et de moderniser notre image de marque.",
+author: "Alain Mbourou, Directeur Marketing, Banque Atlantique Gabon"
+}
+},
+2: {
+title: "Campagne Réseaux Sociaux - Office du Tourisme Gabonais",
+image: "https://readdy.ai/api/search-image?query=social%2520media%2520campaign%2520for%2520African%2520tourism%2C%2520beautiful%2520images%2520of%2520Gabon%2520nature%2C%2520wildlife%2C%2520beaches%2C%2520professional%2520social%2520media%2520posts%2520layout%2C%2520Instagram%2520and%2520Facebook%2520mockups%2C%2520engagement%2520metrics%2C%2520high%2520quality%2520image&width=800&height=500&seq=11&orientation=landscape",
+description: "L'Office du Tourisme Gabonais cherchait à promouvoir les destinations touristiques du pays auprès d'un public international. J'ai conçu et géré une campagne réseaux sociaux multi-plateformes :",
+details: [
+"Création d'une identité visuelle cohérente pour toutes les plateformes",
+"Production de contenu de haute qualité mettant en valeur les paysages et la culture gabonaise",
+"Mise en place d'une stratégie de hashtags et de partenariats avec des influenceurs voyage",
+"Campagnes publicitaires ciblées sur Facebook, Instagram et YouTube",
+"Organisation de concours et d'événements virtuels pour stimuler l'engagement"
+],
+results: [
+"Augmentation de 150% de l'engagement en 3 mois",
+"Croissance de la communauté de 45 000 nouveaux abonnés",
+"Portée organique multipliée par 5 grâce aux partages",
+"Augmentation de 28% des demandes d'information touristique"
+],
+testimonial: {
+text: "La campagne conçue par Marie a considérablement amélioré notre visibilité internationale. Sa compréhension des tendances actuelles et sa créativité ont fait toute la différence.",
+author: "Nadine Koumba, Directrice, Office du Tourisme Gabonais"
+}
+},
+3: {
+title: "Site E-commerce - Afrikrea Gabon",
+image: "https://readdy.ai/api/search-image?query=e-commerce%2520website%2520for%2520African%2520fashion%2C%2520responsive%2520design%2C%2520clean%2520layout%2C%2520product%2520showcase%2C%2520shopping%2520cart%2C%2520modern%2520web%2520design%2C%2520professional%2520website%2520mockup%2C%2520high%2520quality%2520image&width=800&height=500&seq=12&orientation=landscape",
+description: "Afrikrea Gabon, spécialiste de la mode africaine contemporaine, souhaitait développer sa présence en ligne avec un site e-commerce performant et attractif. J'ai supervisé l'ensemble du projet :",
+details: [
+"Conception UX/UI centrée sur l'expérience utilisateur et la mise en valeur des produits",
+"Développement d'une plateforme e-commerce responsive avec WordPress et WooCommerce",
+"Intégration de solutions de paiement adaptées au marché local et international",
+"Optimisation SEO complète et stratégie de contenu",
+"Mise en place d'un système de gestion des stocks et de suivi des commandes"
+],
+results: [
+"Lancement réussi avec 200 commandes dans le premier mois",
+"Taux de conversion de 3.8%, supérieur à la moyenne du secteur",
+"Panier moyen de 85€, en augmentation constante",
+"Expansion vers les marchés internationaux avec 30% de commandes hors Gabon"
+],
+testimonial: {
+text: "Marie a parfaitement compris nos besoins et a créé une plateforme qui reflète l'essence de notre marque tout en étant extrêmement fonctionnelle. Son expertise technique et marketing a été déterminante.",
+author: "Sophie Nguema, Fondatrice, Afrikjrea Gabon"
+}
+},
+
+};
+// Ouvrir la modal avec les détails du projet
+viewProjectButtons.forEach(button => {
+button.addEventListener('click', function() {
+const projectId = this.getAttribute('data-id');
+const project = projectsData[projectId];
+if (project) {
+let detailsHTML = '<ul class="list-disc pl-5 space-y-2 mb-6">';
+project.details.forEach(detail => {
+detailsHTML += `<li class="text-gray-700">${detail}</li>`;
+});
+detailsHTML += '</ul>';
+let resultsHTML = '<ul class="list-disc pl-5 space-y-2 mb-6">';
+project.results.forEach(result => {
+resultsHTML += `<li class="text-gray-700">${result}</li>`;
+});
+resultsHTML += '</ul>';
+modalContent.innerHTML = `
+<div class="mb-6">
+<img src="${project.image}" alt="${project.title}" class="w-full h-auto rounded-lg">
+</div>
+<h3 class="text-2xl font-semibold mb-4 text-primary">${project.title}</h3>
+<p class="text-gray-700 mb-6">${project.description}</p>
+<h4 class="text-xl font-semibold mb-3">Détails du projet</h4>
+${detailsHTML}
+<h4 class="text-xl font-semibold mb-3">Résultats</h4>
+${resultsHTML}
+<div class="bg-gray-50 p-6 rounded-lg mb-6">
+<p class="text-gray-700 italic mb-4">"${project.testimonial.text}"</p>
+<p class="text-gray-900 font-medium">— ${project.testimonial.author}</p>
+</div>
+`;
+projectModal.classList.remove('hidden');
+document.body.style.overflow = 'hidden';
+}
+});
+});
+// Fermer la modal
+closeModal.addEventListener('click', function() {
+projectModal.classList.add('hidden');
+document.body.style.overflow = 'auto';
+});
+// Fermer la modal en cliquant en dehors
+projectModal.addEventListener('click', function(e) {
+if (e.target === projectModal) {
+projectModal.classList.add('hidden');
+document.body.style.overflow = 'auto';
+}
+});
+});
+</script>
+<script id="contact-form-script">
+document.addEventListener('DOMContentLoaded', function() {
+const contactForm = document.getElementById('contact-form');
+contactForm.addEventListener('submit', function(e) {
+e.preventDefault();
+// Simuler l'envoi du formulaire
+const submitButton = this.querySelector('button[type="submit"]');
+const originalText = submitButton.textContent;
+submitButton.disabled = true;
+submitButton.textContent = 'Envoi en cours...';
+setTimeout(function() {
+submitButton.textContent = 'Message envoyé !';
+submitButton.classList.add('bg-green-600');
+// Réinitialiser le formulaire
+contactForm.reset();
+// Rétablir le bouton après quelques secondes
+setTimeout(function() {
+submitButton.disabled = false;
+submitButton.textContent = originalText;
+submitButton.classList.remove('bg-green-600');
+}, 3000);
+}, 1500);
+});
+});
+</script>
+</body>
+</html>
